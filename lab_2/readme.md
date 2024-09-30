@@ -9,7 +9,7 @@ I completed the HTML Codio labs and answered the questions in the lab presentati
 2. What is the parent element of the logo? Why is this type of element the parent?
 > The parent element of the logo is a `picture` element. This could be because the `picture` element allows multiple versions of the logo to be displayed depending on the screen size using the `source` elements. Google does not seem to be using this functionality anymore but maybe they were at one point.
 
-3. What is unusual about hte parent element (think about what it does)?
+3. What is unusual about the parent element (think about what it does)?
 > Though the element is called `picture`, it does not display the logo (or any images) on its own. It actually acts as a wrapper for the `img` element and any `source` elements, influencing how they are displayed.
 
 4. Inspect the "GOOGLE SEARCH" button. What happens when you hover over the CSS style margin in the dev tools?
