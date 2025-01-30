@@ -19,8 +19,8 @@ app.get("/joke", function(req, res) {
 
 // route 4
 app.get("/add", function(req, res) {
-    var x = req.query.x;
-    var y = req.query.y;
+    var x = praseInt(req.query.x);
+    var y = praseInt(req.query.y);
     res.send("x + y =" + (x+y));
 });
 
