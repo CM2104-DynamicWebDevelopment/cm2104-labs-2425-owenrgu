@@ -1,0 +1,17 @@
+.table-dark {
+    background-color: #e3d7ff;
+}
+  
+.table-light {
+    background-color: #bfa4fc;
+}
+
+thead th {
+    background-color: #7236ff;
+    color: white;
+    padding: 8px;
+}
+
+.row-hover {
+    background-color: #8d8d8d;
+}
