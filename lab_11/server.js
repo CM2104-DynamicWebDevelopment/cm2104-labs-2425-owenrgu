@@ -17,4 +17,11 @@ app.get("/joke", function(req, res) {
     res.send(knockknock());
 });
 
+// route 4
+app.get("/add", function(req, res) {
+    var x = req.query.x;
+    var y = req.query.y;
+    res.send("x + y =" + (x+y));
+});
+
 app.listen(8080);
