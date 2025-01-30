@@ -1,6 +1,8 @@
 var express = require("express");
 var knockknock = require("knock-knock-jokes");
+
 var app = express();
+app.use(express.static("public"));
 
 // route 1
 app.get("/", function(req, res) {
