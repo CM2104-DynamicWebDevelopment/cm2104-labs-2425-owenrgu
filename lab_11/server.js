@@ -47,4 +47,9 @@ app.get("/user/:userID/books/:bookID", function(req, res) {
     res.send("User ID: " + userID + " | Book ID: " + bookID);
 });
 
+// 404 page not found
+app.use(function(req, res, next) {
+    res.send("This page does not exist!");
+});
+
 app.listen(8080);
