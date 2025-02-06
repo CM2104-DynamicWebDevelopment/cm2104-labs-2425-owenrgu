@@ -25,7 +25,23 @@ spotifyApi.clientCredentialsGrant().then(function(data) {
 async function getTracks(searchTerm, res) {
     spotifyApi.searchTracks(searchTerm)
         .then(function(data) {
-            res.send(JSON.stringify(data.body));
+            var tracks = data.body.tracks.items;
+            var htmlResponse = "";
+
+            for (let i = 0; i < tracks.length; i++) {
+                var track = tracks[i];
+                console.log(track.name);
+
+                htmlResponse += `
+                    <div>
+                        <h2>${track.name}</h2>
+                        <h4>${track.artists[0].name}</h4>
+                        <img src="${track.album.images[0].url}">
+                        <a href="${track.external_urls.spotify}">Track Details</a>
+                    </div>
+                `
+            }
+            res.send(htmlResponse);
         }, function(err) {
             console.error(err);
         });
