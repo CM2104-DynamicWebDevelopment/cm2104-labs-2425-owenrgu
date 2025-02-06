@@ -37,7 +37,7 @@ async function getTracks(searchTerm, res) {
                         <img src="${track.album.images[0].url}">
                         <p><a href="${track.external_urls.spotify}">Track Details</a></p>
                     </div>
-                `
+                `;
             }
 
             res.send(htmlResponse);
@@ -61,10 +61,19 @@ async function getTopTracks(artist, res) {
                         <img src="${track.album.images[0].url}">
                         <p><a href="${track.external_urls.spotify}">Play on Spotify</a></p>
                     </div>
-                `
+                `;
             }
 
             res.send(htmlResponse);
+        }, function(err) {
+            console.error("Something went wrong!", err);
+        });
+}
+
+async function getRelatedArtists(artist, res) {
+    spotifyApi.getArtistRelatedArtists(artist)
+        .then(function(data) {
+            res.send(JSON.stringify(data.body));
         }, function(err) {
             console.error("Something went wrong!", err);
         });
@@ -86,6 +95,10 @@ app.get("/search", function(req, res) {
 
 app.get("/gettoptracks", function(req, res) {
     getTopTracks(req.query.artistId, res);
+});
+
+app.get("/getrelatedartists", function(req, res) {
+    getRelatedArtists(req.query.artistId, res);
 });
 
 app.listen(8080);
