@@ -35,12 +35,13 @@ async function getTracks(searchTerm, res) {
                 htmlResponse += `
                     <div>
                         <h2>${track.name}</h2>
-                        <h4>${track.artists[0].name} (ID: ${track.artists[0].id})</h4>
+                        <h4>${track.artists[0].name} (Artist ID: ${track.artists[0].id})</h4>
                         <img src="${track.album.images[0].url}">
                         <a href="${track.external_urls.spotify}">Track Details</a>
                     </div>
                 `
             }
+            
             res.send(htmlResponse);
         }, function(err) {
             console.error(err);
@@ -50,7 +51,24 @@ async function getTracks(searchTerm, res) {
 async function getTopTracks(artist, res) {
     spotifyApi.getArtistTopTracks(artist, "GB")
         .then(function(data) {
-            res.send(JSON.stringify(data.body));
+            var tracks = data.body.tracks.items;
+            var htmlResponse = "";
+
+            for (let i = 0; i < tracks.length; i++) {
+                var track = tracks[i];
+                console.log(track.name);
+
+                htmlResponse += `
+                    <div>
+                        <h2>${track.name}</h2>
+                        <h4>By ${track.artists[0].name} (Artist ID: ${track.artists[0].id})</h4>
+                        <img src="${track.album.images[0].url}">
+                        <a href="${track.external_urls.spotify}">Play on Spotify</a>
+                    </div>
+                `
+            }
+
+            res.send(htmlResponse);
         }, function(err) {
             console.error("Something went wrong!", err);
         });
@@ -58,7 +76,7 @@ async function getTopTracks(artist, res) {
 
 // -- Routes --
 app.get("/", function(req, res) {
-    res.send("Hello world! by express");
+    res.send("Hello world! by express (lab 12)");
 });
 
 app.get("/searchlove", function(req, res) {
