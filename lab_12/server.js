@@ -49,7 +49,7 @@ async function getTracks(searchTerm, res) {
 async function getTopTracks(artist, res) {
     spotifyApi.getArtistTopTracks(artist, "GB")
         .then(function(data) {
-            var tracks = data.body.tracks.items;
+            var tracks = data.body.tracks;
             var htmlResponse = "";
 
             for (let i = 0; i < tracks.length; i++) {
