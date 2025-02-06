@@ -30,8 +30,6 @@ async function getTracks(searchTerm, res) {
 
             for (let i = 0; i < tracks.length; i++) {
                 var track = tracks[i];
-                console.log(track.name);
-
                 htmlResponse += `
                     <div>
                         <h2>${track.name}</h2>
@@ -41,7 +39,7 @@ async function getTracks(searchTerm, res) {
                     </div>
                 `
             }
-            
+
             res.send(htmlResponse);
         }, function(err) {
             console.error(err);
@@ -56,8 +54,6 @@ async function getTopTracks(artist, res) {
 
             for (let i = 0; i < tracks.length; i++) {
                 var track = tracks[i];
-                console.log(track.name);
-
                 htmlResponse += `
                     <div>
                         <h2>${track.name}</h2>
