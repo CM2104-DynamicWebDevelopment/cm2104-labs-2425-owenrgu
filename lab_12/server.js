@@ -35,7 +35,7 @@ async function getTracks(searchTerm, res) {
                         <h2>${track.name}</h2>
                         <h4>${track.artists[0].name} (Artist ID: ${track.artists[0].id})</h4>
                         <img src="${track.album.images[0].url}">
-                        <a href="${track.external_urls.spotify}">Track Details</a>
+                        <p><a href="${track.external_urls.spotify}">Track Details</a></p>
                     </div>
                 `
             }
@@ -59,7 +59,7 @@ async function getTopTracks(artist, res) {
                         <h2>${track.name}</h2>
                         <h4>By ${track.artists[0].name} (Artist ID: ${track.artists[0].id})</h4>
                         <img src="${track.album.images[0].url}">
-                        <a href="${track.external_urls.spotify}">Play on Spotify</a>
+                        <p><a href="${track.external_urls.spotify}">Play on Spotify</a></p>
                     </div>
                 `
             }
