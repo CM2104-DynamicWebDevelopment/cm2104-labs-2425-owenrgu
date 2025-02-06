@@ -42,7 +42,7 @@ async function getTracks(searchTerm, res) {
 
             res.send(htmlResponse);
         }, function(err) {
-            console.error(err);
+            console.error("Something went wrong!", err);
         });
 }
 
@@ -71,7 +71,6 @@ async function getTopTracks(artist, res) {
 }
 
 async function getRelatedArtists(artist, res) {
-    console.log(artist);
     spotifyApi.getArtistRelatedArtists(artist)
         .then(function(data) {
             res.send(JSON.stringify(data.body));
@@ -99,7 +98,9 @@ app.get("/gettoptracks", function(req, res) {
 });
 
 app.get("/getrelatedartists", function(req, res) {
-    console.log(req.query.artistId);
+    // This route appears to error often saying the artist ID
+    // is not found, even though it is valid. Must be an issue
+    // on spotify's end.
     getRelatedArtists(req.query.artistId, res);
 });
 
