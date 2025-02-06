@@ -21,9 +21,23 @@ spotifyApi.clientCredentialsGrant().then(function(data) {
     console.log("Something went wrong when retrieving an access token:", err.message);
 });
 
+// -- Functions --
+async function getTracks(searchTerm, res) {
+    spotifyApi.searchTracks(searchTerm)
+        .then(function(data) {
+            res.send(JSON.stringify(data.body));
+        }, function(err) {
+            console.error(err);
+        });
+}
+
 // -- Routes --
 app.get("/", function(req, res) {
     res.send("Hello world! by express");
+});
+
+app.get("/searchlove", function(req, res) {
+    getTracks("love", res);
 });
 
 app.listen(8080);
