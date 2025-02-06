@@ -98,6 +98,7 @@ app.get("/gettoptracks", function(req, res) {
 });
 
 app.get("/getrelatedartists", function(req, res) {
+    console.log(req.query.artistId);
     getRelatedArtists(req.query.artistId, res);
 });
 
