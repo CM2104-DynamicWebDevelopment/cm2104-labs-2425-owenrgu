@@ -71,6 +71,7 @@ async function getTopTracks(artist, res) {
 }
 
 async function getRelatedArtists(artist, res) {
+    console.log(artist);
     spotifyApi.getArtistRelatedArtists(artist)
         .then(function(data) {
             res.send(JSON.stringify(data.body));
