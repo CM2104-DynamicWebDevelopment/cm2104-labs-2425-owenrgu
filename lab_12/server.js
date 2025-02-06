@@ -79,6 +79,28 @@ async function getRelatedArtists(artist, res) {
         });
 }
 
+async function getTracksAPI(searchTerm, res) {
+    spotifyApi.searchTracks(searchTerm)
+        .then(function(data) {
+            var tracks = data.body.tracks.items;
+            var jsonResponse = [];
+
+            for (let i = 0; i < tracks.length; i++) {
+                var track = tracks[i];
+                jsonResponse.push({
+                    trackName: track.name,
+                    artist: track.artists[0].name,
+                    image: track.album.images[0].url,
+                    url: track.external_urls.spotify
+                });
+            }
+
+            res.send(jsonResponse);
+        }, function(err) {
+            console.error("Something went wrong!", err);
+        });
+}
+
 // -- Routes --
 app.get("/", function(req, res) {
     res.send("Hello world! by express (lab 12)");
@@ -102,6 +124,10 @@ app.get("/getrelatedartists", function(req, res) {
     // is not found, even though it is valid. Must be an issue
     // on spotify's end.
     getRelatedArtists(req.query.artistId, res);
+});
+
+app.get("/searchAPI", function(req, res) {
+    getTracksAPI(req.query.searchTerm, res);
 });
 
 app.listen(8080);
