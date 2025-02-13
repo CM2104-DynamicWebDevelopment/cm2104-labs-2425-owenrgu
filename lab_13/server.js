@@ -48,7 +48,7 @@ app.post("/quotes", function(req, res) {
 });
 
 app.post("/search", function(req, res) {
-    console.log(req.body);
+    req.body.name = req.body.name.toLowerCase();
 
     db.collection("quotes").find(req.body).toArray(function(err, result) {
         if (err) throw err;
