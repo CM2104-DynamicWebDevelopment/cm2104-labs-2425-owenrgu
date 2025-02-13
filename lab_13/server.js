@@ -8,6 +8,7 @@ const dbName = "star_wars_quotes";
 const express = require("express");
 const app = express();
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 // Connect DB
 var db;
@@ -36,4 +37,13 @@ app.get("/all", function(req, res) {
         }
         res.send(output);
     });
-})
+});
+
+app.post("/quotes", function(req, res) {
+    db.collection("quotes").insertOne(req.body, function(err, result) {
+        if (err) throw err;
+        console.log("Saved to database");
+        res.redirect("/");
+    });
+});
+
