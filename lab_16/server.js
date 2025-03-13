@@ -13,12 +13,25 @@ app.get("/", function (req, res) {
 
 io.on('connection', function (socket) {
   console.log('a user connected');
+  
+  socket.on('join room', function(data) {
+    socket.join(data.room);
+    console.log(`${data.username} joined room: ${data.room}`);
+    
+    socket.to(data.room).emit('chat message', {
+      username: 'System',
+      text: `${data.username} has joined the room`,
+      room: data.room
+    });
+  });
+  
   socket.on('disconnect', function () {
     console.log('user disconnected');
   });
 
   socket.on('chat message', function (msgData) {
-    io.emit('chat message', msgData);
+    // Send message only to the specific room
+    io.to(msgData.room).emit('chat message', msgData);
   });
 })
 

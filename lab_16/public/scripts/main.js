@@ -1,24 +1,34 @@
 var socket = io();
 var username = "Anonymous";
+var currentRoom = "";
 
 $("#set-username").click(function() {
     var newUsername = $("#username").val().trim();
-    if (newUsername) {
+    var roomName = $("#room").val().trim();
+    
+    if (newUsername && roomName) {
         username = newUsername;
+        currentRoom = roomName;
+        
+        socket.emit("join room", { username: username, room: currentRoom });
+        
         $("#username-container").hide();
         $("#form").show();
+        
+        $("#messages").before("<div id='room-display'>Room: <strong>" + currentRoom + "</strong></div>");
     }
     return false;
 });
 
-$("#form").hide(); // Hide chat form until username is set
+$("#form").hide();
 
 $("#form").submit(function() {
     var messageText = $("#input").val().trim();
     if (messageText) {
         var messageData = {
             username: username,
-            text: messageText
+            text: messageText,
+            room: currentRoom
         };
         socket.emit("chat message", messageData);
         $("#input").val("");
